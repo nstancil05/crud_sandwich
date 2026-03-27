@@ -4,7 +4,7 @@ from ..models import models, schemas
 
 
 def create(db: Session, resource):
-    """Add a new ingredient resource to the database."""
+    # Add a new ingredient resource to the database.
     db_resource = models.Resource(
         item = resource.item,
         amount = resource.amount
@@ -24,11 +24,6 @@ def read_one(db: Session, resource_id):
 
 
 def update(db: Session, resource_id, resource):
-    """
-    Update a resource by ID. Only fields that are explicitly provided
-    in the request body will be changed (exclude_unset keeps untouched
-    fields from being overwritten with null).
-    """
     db_resource = db.query(models.Resource).filter(models.Resource.id == resource_id)
     update_data = resource.model_dump(exclude_unset = True)
     db_resource.update(update_data, synchronize_session = False)

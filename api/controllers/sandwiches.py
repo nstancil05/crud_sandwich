@@ -4,7 +4,7 @@ from ..models import models, schemas
 
 
 def create(db: Session, sandwich):
-    """Create a new sandwich record and persist it to the database."""
+    # Create a new sandwich record and persist it to the database.
     db_sandwich = models.Sandwich(
         sandwich_name = sandwich.sandwich_name,
         price = sandwich.price
@@ -24,11 +24,6 @@ def read_one(db: Session, sandwich_id):
 
 
 def update(db: Session, sandwich_id, sandwich):
-    """
-    Update a sandwich by ID. Only fields that are explicitly provided
-    in the request body will be changed (exclude_unset keeps untouched
-    fields from being overwritten with null).
-    """
     db_sandwich = db.query(models.Sandwich).filter(models.Sandwich.id == sandwich_id)
     update_data = sandwich.model_dump(exclude_unset = True)
     db_sandwich.update(update_data, synchronize_session = False)

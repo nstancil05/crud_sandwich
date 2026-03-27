@@ -4,7 +4,7 @@ from ..models import models, schemas
 
 
 def create(db: Session, order_detail):
-    """Add a line item to an existing order, linking it to a specific sandwich."""
+    # Add a line item to an existing order, linking it to a specific sandwich.
     db_order_detail = models.OrderDetail(
         order_id = order_detail.order_id,
         sandwich_id = order_detail.sandwich_id,
@@ -26,9 +26,9 @@ def read_one(db: Session, order_detail_id):
 
 def update(db: Session, order_detail_id, order_detail):
     """
-    Update an order detail by ID. Only fields that are explicitly provided
-    in the request body will be changed (exclude_unset keeps untouched
-    fields from being overwritten with null).
+    Update a sandwich by ID, only fields that are explicitly given
+    in the request body will be changed. Exclude_unset keeps untouched
+    fields from being overwritten with null
     """
     db_order_detail = db.query(models.OrderDetail).filter(models.OrderDetail.id == order_detail_id)
     update_data = order_detail.model_dump(exclude_unset = True)

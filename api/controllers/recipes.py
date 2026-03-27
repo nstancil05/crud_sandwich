@@ -4,7 +4,7 @@ from ..models import models, schemas
 
 
 def create(db: Session, recipe):
-    """Create a new recipe linking a sandwich to one of its required resources."""
+    # Create a new recipe linking a sandwich to one of its required resources.
     db_recipe = models.Recipe(
         sandwich_id = recipe.sandwich_id,
         resource_id = recipe.resource_id,
@@ -25,11 +25,6 @@ def read_one(db: Session, recipe_id):
 
 
 def update(db: Session, recipe_id, recipe):
-    """
-    Update a recipe by ID. Only fields that are explicitly provided
-    in the request body will be changed (exclude_unset keeps untouched
-    fields from being overwritten with null).
-    """
     db_recipe = db.query(models.Recipe).filter(models.Recipe.id == recipe_id)
     update_data = recipe.model_dump(exclude_unset = True)
     db_recipe.update(update_data, synchronize_session = False)

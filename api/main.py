@@ -55,7 +55,7 @@ def delete_one_order(order_id: int, db: Session = Depends(get_db)):
     return orders.delete(db = db, order_id = order_id)
 
 
-# --- Sandwiches ---
+# Sandwiches
 
 @app.post("/sandwiches/", response_model=schemas.Sandwich, tags=["Sandwiches"])
 def create_sandwich(sandwich: schemas.SandwichCreate, db: Session = Depends(get_db)):
@@ -91,7 +91,7 @@ def delete_one_sandwich(sandwich_id: int, db: Session = Depends(get_db)):
     return sandwiches.delete(db = db, sandwich_id = sandwich_id)
 
 
-# --- Resources ---
+# Resources
 
 @app.post("/resources/", response_model=schemas.Resource, tags=["Resources"])
 def create_resource(resource: schemas.ResourceCreate, db: Session = Depends(get_db)):
@@ -127,7 +127,7 @@ def delete_one_resource(resource_id: int, db: Session = Depends(get_db)):
     return resources.delete(db = db, resource_id = resource_id)
 
 
-# --- Recipes ---
+# Recipes
 
 @app.post("/recipes/", response_model=schemas.Recipe, tags=["Recipes"])
 def create_recipe(recipe: schemas.RecipeCreate, db: Session = Depends(get_db)):
@@ -163,7 +163,7 @@ def delete_one_recipe(recipe_id: int, db: Session = Depends(get_db)):
     return recipes.delete(db = db, recipe_id = recipe_id)
 
 
-# --- Order Details ---
+# Order Details
 
 @app.post("/order_details/", response_model=schemas.OrderDetail, tags=["Order Details"])
 def create_order_detail(order_detail: schemas.OrderDetailCreate, db: Session = Depends(get_db)):
@@ -179,7 +179,7 @@ def read_order_details(db: Session = Depends(get_db)):
 def read_one_order_detail(order_detail_id: int, db: Session = Depends(get_db)):
     order_detail = order_details.read_one(db, order_detail_id = order_detail_id)
     if order_detail is None:
-        raise HTTPException(status_code = 404, detail = "No order detail found with that ID")
+        raise HTTPException(status_code = 404, detail = "No order details found with that ID")
     return order_detail
 
 
@@ -187,7 +187,7 @@ def read_one_order_detail(order_detail_id: int, db: Session = Depends(get_db)):
 def update_one_order_detail(order_detail_id: int, order_detail: schemas.OrderDetailUpdate, db: Session = Depends(get_db)):
     order_detail_db = order_details.read_one(db, order_detail_id = order_detail_id)
     if order_detail_db is None:
-        raise HTTPException(status_code = 404, detail = "No order detail found with that ID")
+        raise HTTPException(status_code = 404, detail = "No order details found with that ID")
     return order_details.update(db = db, order_detail = order_detail, order_detail_id = order_detail_id)
 
 
@@ -195,5 +195,5 @@ def update_one_order_detail(order_detail_id: int, order_detail: schemas.OrderDet
 def delete_one_order_detail(order_detail_id: int, db: Session = Depends(get_db)):
     order_detail = order_details.read_one(db, order_detail_id = order_detail_id)
     if order_detail is None:
-        raise HTTPException(status_code = 404, detail = "No order detail found with that ID")
+        raise HTTPException(status_code = 404, detail = "No order details found with that ID")
     return order_details.delete(db = db, order_detail_id = order_detail_id)
